@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   Button,
   StyleSheet,
   Text,
@@ -9,7 +10,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-const Item = ({name, email, bidang, onPress}) => {
+const Item = ({name, email, bidang, onPress, onDelete}) => {
   return (
     <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
       <View style={styles.desc}>
@@ -17,7 +18,9 @@ const Item = ({name, email, bidang, onPress}) => {
         <Text style={styles.descEmail}>{email}</Text>
         <Text style={StyleSheet.descBidang}>{bidang}</Text>
       </View>
-      <Text style={styles.delete}>X</Text>
+      <TouchableOpacity onPress={onDelete}>
+        <Text style={styles.delete}>X</Text>
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -71,6 +74,13 @@ const LocalAPI = () => {
     setIsUpdating(true);
   };
 
+  const deleteItem = (id) => {
+    axios.delete(`http://10.0.2.2:3004/users/${id}`).then((response) => {
+      console.log('deleted item: ', response);
+      getData();
+    });
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -106,6 +116,22 @@ const LocalAPI = () => {
           email={user.email}
           bidang={user.bidang}
           onPress={() => selectItem(user)}
+          onDelete={() =>
+            Alert.alert(
+              'Peringatan',
+              `Apakah yakin ingin menghapus user ${user.name}?`,
+              [
+                {
+                  text: 'Tidak',
+                  onPress: () => console.log('cancel'),
+                },
+                {
+                  text: 'Ya',
+                  onPress: () => deleteItem(user.id),
+                },
+              ],
+            )
+          }
         />
       ))}
     </View>
