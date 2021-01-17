@@ -1,21 +1,28 @@
 {
-  "posts": [{
+  "users": [
+    {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "Adipati",
+      "email": "adipati@gmail.com",
+      "bidang": "Web Dev"
     },
     {
-      "title": "code kabayan",
-      "author": "adipati",
+      "name": "Tika",
+      "email": "tika@gmail.com",
+      "bidang": "UX Designer",
       "id": 2
+    },
+    {
+      "name": "Angga",
+      "email": "risky.angga@gmail.com",
+      "bidang": "Marketing",
+      "id": 3
+    },
+    {
+      "name": "Lia Widianingrum",
+      "email": "liawdngrm@gmail.com",
+      "bidang": "UI/UX Designer",
+      "id": 4
     }
-  ],
-  "comments": [{
-    "id": 1,
-    "body": "some comment",
-    "postId": 1
-  }],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
